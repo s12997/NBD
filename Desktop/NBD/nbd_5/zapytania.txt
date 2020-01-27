@@ -1,0 +1,17 @@
+--bardzo przepraszam za jakość obrazów - konwersja by facebook
+--zad1
+MATCH (movie: Movie) return movie
+--zad2
+MATCH (hugoWeaving: Person {name: "Hugo Weaving"})-[:ACTED_IN]->(hugoWeavingMovies) RETURN hugoWeaving, hugoWeavingMovies
+--zad3
+MATCH (hugoWeaving: Person {name: "Hugo Weaving"})-[:ACTED_IN]->(movie)<-[:DIRECTED]-(directors) RETURN hugoWeaving, movie, directors
+--zad4
+MATCH (hugoWeaving: Person {name: "Hugo Weaving"})-[:ACTED_IN]->(movie)<-[:ACTED_IN]-(actors) RETURN hugoWeaving, movie, actors
+--5
+MATCH (matrix: Movie {title:"The Matrix"})<-[:ACTED_IN]-(actors) RETURN matrix, actors
+--6
+MATCH(actor: Person)-[:ACTED_IN]->(movie: Movie) WITH actor.name as name, count(movie) as number WHERE number > 1 RETURN name, number
+--7
+MATCH (author: Person)-[:DIRECTED]->(movie: Movie)<-[:PRODUCED]-(director: Person) RETURN author, director, movie
+--8
+MATCH (actor1: Person {name: "Hugo Weaving"})-[:ACTED_IN]->(movie: Movie)<-[:ACTED_IN]-(person2: Person {name: "Keanu Reeves"}) RETURN movie
